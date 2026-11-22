@@ -1,0 +1,6 @@
+{
+  "version": "3.3.0",
+  "release_notes": "v3.3.0: Fixed 720p native engine, zero-bleed 360p->720p removal, hidden System Tray & Desktop icon, faster re-install & Cloudflare live updates.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
