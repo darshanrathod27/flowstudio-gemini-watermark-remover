@@ -1,0 +1,11 @@
+{
+  "ffmpeg_path": "",
+  "ffprobe_path": "",
+  "masks_dir": "./assets/masks",
+  "models_dir": "./models",
+  "workspace_dir": "./workspace",
+  "default_upscale_mode": "off",
+  "port": 8765,
+  "host": "127.0.0.1",
+  "perf_mode": "full"
+}

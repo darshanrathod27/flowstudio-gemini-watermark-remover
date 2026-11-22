@@ -1,0 +1,6 @@
+{
+  "version": "3.4.0",
+  "release_notes": "v3.4.0: Real frame/tile pause/resume/cancel & clear-history, crisp SVG micro-button extension UI, bulletproof toggle, and CUDA guard.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
