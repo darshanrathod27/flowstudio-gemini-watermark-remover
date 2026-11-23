@@ -1,0 +1,5 @@
+# Neural GPU PC Requirements (RTX 5050 8GB / RTX 3050 CUDA acceleration)
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch>=2.4.0
+torchvision>=0.19.0
+spandrel>=0.3.4

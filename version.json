@@ -1,0 +1,6 @@
+{
+  "version": "3.6.1",
+  "release_notes": "v3.6.1: Hotfix for 100% orphan-history-proof installer & updater, Git-free pure-PowerShell ZIP fallback, .pyd process unlock, and dynamic version banner.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
