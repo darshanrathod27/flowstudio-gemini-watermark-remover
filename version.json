@@ -1,0 +1,6 @@
+{
+  "version": "3.5.0",
+  "release_notes": "v3.5.0: Full-power batched GPU upscaler, <2s lazy boot, zero black console popup, strict manual-only wake, and persistent OneDrive-safe desktop shortcut.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}

@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "FlowStudio Local Bridge",
+  "version": "3.5.0",
+  "description": "High-speed local GPU reverse-alpha and neural upscaling media bridge for FlowStudio.",
+  "permissions": [
+    "downloads",
+    "storage",
+    "tabs",
+    "nativeMessaging",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8765/*",
+    "https://flowstudio-api.flowstudio-app.workers.dev/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "FlowStudio Bridge",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArdAL6QYurgOy2EpqFSOckyIbNGnFacfYWkyPpx9rwQ6/5yxxhgxu3Zpzyz0XGgcvpHf/BnNU2RaBpSSy2pOmu/Or3og3InQ35wRAPuYjeY7ILNLoEZMzmgDkufY1H40KLNbM9R62jKjjp3E1SMd9Ia1vKiaclJ5f3l1y1BTXU2/nHY80ntKppg6pmMmSeVd38dVTITxpr81mmSng346mSjYYIzl2OhMDoJtNmM0VmSSCZuUB++d51zZZokmYHouYTDkvfz7JIs+sOUa6pRC99KU3wTzO35bkLfDyP5wIbLoQd9gPo2opWPV5D3u4NNJ2b+iKfOXk4J/3GJNWJNbpLwIDAQAB"
+}
