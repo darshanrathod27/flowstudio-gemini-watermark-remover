@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowStudio Pro - High-Fidelity GPU Media Processing</title>
+  <link rel="stylesheet" href="/ui/style.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-icon">FS</div>
+      <div class="brand-text">
+        <span class="brand-title">FlowStudio <span class="badge-pro">PRO</span></span>
+        <span class="brand-subtitle">GPU Reverse-Alpha & Neural Engine</span>
+      </div>
+    </div>
+
+    <!-- Live Hardware & System Status Badges -->
+    <div class="hw-badges" id="hw-badges">
+      <span class="badge badge-gpu" id="badge-gpu">Detecting Hardware...</span>
+      <span class="badge badge-encoder" id="badge-encoder">Encoder: Probing</span>
+      <span class="badge badge-masks" id="badge-masks">Masks: 0 Ready</span>
+    </div>
+
+    <!-- Performance & Config Controls -->
+    <div class="top-controls">
+      <div class="select-group">
+        <label for="perf-mode-select">Perf Mode:</label>
+        <select id="perf-mode-select" class="select-input">
+          <option value="full">⚡ Full Power (Max Workers)</option>
+          <option value="balanced">⚖️ Balanced</option>
+          <option value="eco">🌱 Eco Mode</option>
+        </select>
+      </div>
+      <button id="btn-refresh" class="btn btn-secondary btn-sm" title="Refresh Status">↻</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Mode Tabs: Flow Logo Cleaner vs Personal AI Upscaler vs Smart Project Folder / ZIP -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tab-cleaner" data-tab="cleaner">✨ Flow Logo Cleaner</button>
+      <button class="tab-btn" id="tab-upscaler" data-tab="upscaler">🚀 Personal AI Upscaler (Videos & Images)</button>
+      <button class="tab-btn" id="tab-project" data-tab="project">📁 Smart Project Folder / ZIP</button>
+    </div>
+
+    <!-- Processing Configuration & Drop Zone -->
+    <section class="panel upload-panel" id="upload-panel">
+      <div class="panel-header">
+        <h2 id="panel-title">Batch Media Processing</h2>
+        <span class="panel-desc" id="panel-desc">Drag & drop up to 50+ images and videos simultaneously</span>
+      </div>
+
+      <!-- Drag & Drop Zone -->
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" multiple accept="image/*,video/*,.mp4,.mov,.mkv,.webm,.jpg,.jpeg,.png,.webp" class="file-input-hidden">
+        <div class="dropzone-content">
+          <div class="upload-icon">📁</div>
+          <div class="dropzone-text">
+            <strong id="dropzone-main-text">Drag and drop images or videos here</strong>
+            <span>or <label for="file-input" class="browse-link">browse files</label> from your computer</span>
+          </div>
+          <div class="file-types-hint">Supports MP4, MOV, MKV, WEBM, PNG, JPG, JPEG, WEBP</div>
+        </div>
+      </div>
+
+      <!-- Batch Options Bar -->
+      <div class="batch-options-bar">
+        <div class="options-left">
+          <label class="toggle-control" id="control-remove-logo" title="Accurately un-blends semi-transparent corner logo with mathematical alpha inversion">
+            <input type="checkbox" id="toggle-remove-logo" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Watermark Removal (Reverse-Alpha)</span>
+          </label>
+
+          <div class="select-group">
+            <label for="upscale-select">Upscale Target:</label>
+            <select id="upscale-select" class="select-input">
+              <option value="off">Off (Native Resolution)</option>
+              <option value="2x_anime">2x Animation / 3D (RealESRGAN 2x)</option>
+              <option value="2x_cinema">2x Cinema / Realistic (RealESRGAN 2x)</option>
+              <option value="4x_anime">4x Animation / 3D (AnimeVideoV3 4x)</option>
+              <option value="4x_cinema">4x Cinema / Realistic (RealESRGAN x4+)</option>
+              <option value="1080p_anime">1080p Animation / 3D (AnimeVideoV3)</option>
+              <option value="1080p_cinema">1080p Cinema / Realistic (RealESRGAN x4+)</option>
+              <option value="2k_anime">2K Animation / 3D (1440p · AnimeVideoV3)</option>
+              <option value="2k_cinema">2K Cinema / Realistic (1440p · RealESRGAN x4+)</option>
+              <option value="4k_anime">4K Animation / 3D (2160p · AnimeVideoV3)</option>
+              <option value="4k_cinema">4K Cinema / Realistic (2160p · RealESRGAN x4+)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="options-right">
+          <span class="selected-summary" id="selected-summary">No files staged</span>
+          <button id="btn-start-batch" class="btn btn-primary" disabled>Start Batch Processing</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Project Folder / ZIP Panel -->
+    <section class="panel project-panel" id="project-panel" style="display: none;">
+      <div class="panel-header">
+        <div>
+          <h2>Smart Project Folder / ZIP</h2>
+          <span class="panel-desc">Auto-detects Flow watermarks, skips already-clean media &amp; keeps all non-media files (.txt, .md, .pdf) intact</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <!-- Source Selection Row -->
+        <div class="project-source-grid">
+          <div class="project-source-card">
+            <div class="project-source-header">
+              <strong>Local PC Folder</strong>
+              <span class="project-hint">In-place or export to new folder</span>
+            </div>
+            <div class="project-source-actions">
+              <button type="button" id="btn-pick-folder" class="btn btn-primary">📁 Select PC Folder</button>
+              <button type="button" id="btn-rescan-folder" class="btn btn-secondary" style="display: none;" title="Rescan selected folder">↻ Rescan</button>
+            </div>
+            <div class="project-path-display" id="project-folder-path">No folder selected</div>
+          </div>
+
+          <div class="project-zip-dropzone" id="project-zip-dropzone">
+            <input type="file" id="project-zip-input" accept=".zip,application/zip" class="file-input-hidden">
+            <div class="project-zip-content">
+              <button type="button" id="btn-pick-zip" class="btn btn-secondary">📦 Select / Drop Project .ZIP</button>
+              <div class="project-zip-meta" id="project-zip-meta">Drop a Flow project .ZIP here or click to browse</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Smart Scan Summary Strip -->
+        <div class="project-scan-card" id="project-scan-card" style="display: none;">
+          <div class="scan-summary-strip">
+            <div class="scan-stat">
+              <span class="scan-stat-label">Total</span>
+              <span class="scan-stat-value" id="scan-total-count">0</span>
+            </div>
+            <div class="scan-stat scan-stat-clean">
+              <span class="scan-stat-label">Needs Clean</span>
+              <span class="scan-stat-value" id="scan-needs-count">0</span>
+            </div>
+            <div class="scan-stat scan-stat-skip">
+              <span class="scan-stat-label">Already Clean · Auto-Skip</span>
+              <span class="scan-stat-value" id="scan-clean-count">0</span>
+            </div>
+            <div class="scan-stat scan-stat-other">
+              <span class="scan-stat-label">Other Files Kept (.txt/.md/.pdf)</span>
+              <span class="scan-stat-value" id="scan-other-count">0</span>
+            </div>
+          </div>
+
+          <details class="project-files-details" id="project-files-details">
+            <summary id="project-files-summary">View File Breakdown (0 files)</summary>
+            <div class="project-files-list" id="project-files-list"></div>
+          </details>
+        </div>
+
+        <!-- Output Mode & Rename Options -->
+        <div class="project-config-bar">
+          <div class="project-config-left">
+            <div class="mode-switch-group" id="project-mode-group">
+              <span class="config-field-label">Output Mode:</span>
+              <div class="segmented-switch" role="radiogroup" aria-label="Project output mode">
+                <label class="segment-option">
+                  <input type="radio" name="project-mode" id="mode-in-place" value="in_place" checked>
+                  <span>Update Folder In-Place</span>
+                </label>
+                <label class="segment-option">
+                  <input type="radio" name="project-mode" id="mode-new-folder" value="new_folder">
+                  <span>Export to New Folder</span>
+                </label>
+              </div>
+              <span class="mode-helper-text" id="project-mode-hint">Replaces ONLY watermarked files inside the original PC folder; everything else untouched.</span>
+            </div>
+
+            <div class="output-name-group" id="project-output-name-group" style="display: none;">
+              <label for="project-output-name" class="config-field-label">Output Folder Name:</label>
+              <input type="text" id="project-output-name" class="text-input" placeholder="Custom folder name (saved in Downloads)">
+            </div>
+
+            <div class="project-upscale-row">
+              <div class="select-group">
+                <label for="project-upscale-select">AI Upscale:</label>
+                <select id="project-upscale-select" class="select-input">
+                  <option value="off">Off (Native Resolution)</option>
+                  <option value="2x_anime">2x Animation / 3D (RealESRGAN 2x)</option>
+                  <option value="2x_cinema">2x Cinema / Realistic (RealESRGAN 2x)</option>
+                  <option value="4x_anime">4x Animation / 3D (AnimeVideoV3 4x)</option>
+                  <option value="4x_cinema">4x Cinema / Realistic (RealESRGAN x4+)</option>
+                  <option value="1080p_anime">1080p Animation / 3D (AnimeVideoV3)</option>
+                  <option value="1080p_cinema">1080p Cinema / Realistic (RealESRGAN x4+)</option>
+                  <option value="2k_anime">2K Animation / 3D (1440p · AnimeVideoV3)</option>
+                  <option value="2k_cinema">2K Cinema / Realistic (1440p · RealESRGAN x4+)</option>
+                  <option value="4k_anime">4K Animation / 3D (2160p · AnimeVideoV3)</option>
+                  <option value="4k_cinema">4K Cinema / Realistic (2160p · RealESRGAN x4+)</option>
+                </select>
+              </div>
+
+              <label class="checkbox-inline" id="project-upscale-clean-wrap" style="display: none;">
+                <input type="checkbox" id="project-upscale-clean">
+                <span>Also upscale already-clean media</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="project-config-right">
+            <button type="button" id="btn-start-project" class="btn btn-success" disabled>Start Project Clean</button>
+          </div>
+        </div>
+
+        <!-- Live Execution & Progress Card -->
+        <div class="project-progress-card" id="project-progress-card" style="display: none;">
+          <div class="project-progress-top">
+            <div class="project-progress-title-row">
+              <span class="status-badge status-queued" id="project-job-status">queued</span>
+              <strong id="project-job-name">Project</strong>
+              <span class="project-job-counts" id="project-job-counts"></span>
+            </div>
+            <div class="project-progress-actions" id="project-progress-actions">
+              <button type="button" id="btn-proj-pause" class="btn btn-warning btn-xs" style="display: none;">Pause</button>
+              <button type="button" id="btn-proj-resume" class="btn btn-success btn-xs" style="display: none;">Resume</button>
+              <button type="button" id="btn-proj-cancel" class="btn btn-danger btn-xs" style="display: none;">Cancel</button>
+              <button type="button" id="btn-proj-open-folder" class="btn btn-primary btn-xs" style="display: none;">📂 Open Output Folder</button>
+            </div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="project-job-bar" style="width: 0%;"></div>
+          </div>
+          <div class="progress-meta">
+            <span id="project-job-current-file">Preparing...</span>
+            <span id="project-job-pct">0%</span>
+          </div>
+          <div class="project-output-path" id="project-job-output-path" style="display: none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Job Queue & Monitoring Dashboard -->
+    <section class="panel queue-panel">
+      <div class="panel-header queue-header">
+        <div class="queue-title-group">
+          <h2>Processing Queue</h2>
+          <span class="badge badge-count" id="queue-count">0 items</span>
+          <span class="badge badge-pool" id="pool-status-indicator" style="font-size: 11px; margin-left: 10px; color: #8b949e; background: rgba(33, 38, 45, 0.7); padding: 3px 8px; border-radius: 12px; border: 1px solid #30363d;">Fast Pool: Idle | AI Upscale Pool: Idle</span>
+        </div>
+        <div class="queue-actions">
+          <button id="btn-stop-all" class="btn btn-danger btn-sm" style="display: none;">⏹ Stop All</button>
+          <button id="btn-open-outputs" class="btn btn-secondary btn-sm">📂 Open Outputs</button>
+          <button id="btn-download-selected-zip" class="btn btn-secondary btn-sm" disabled>📦 Download Selected</button>
+          <button id="btn-download-all-zip" class="btn btn-success btn-sm" disabled>📦 Download All (ZIP)</button>
+          <button id="btn-clear-history" class="btn btn-secondary btn-sm">Clear History</button>
+        </div>
+      </div>
+
+      <!-- Jobs Table -->
+      <div class="table-container">
+        <table class="jobs-table" id="jobs-table">
+          <thead>
+            <tr>
+              <th style="width: 4%;"><input type="checkbox" id="th-select-all" title="Select All"></th>
+              <th style="width: 25%;">File</th>
+              <th style="width: 8%;">Type</th>
+              <th style="width: 15%;">Calibrated Mask</th>
+              <th style="width: 14%;">Upscale</th>
+              <th style="width: 18%;">Status & Progress</th>
+              <th style="width: 16%; text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobs-tbody">
+            <tr class="empty-row">
+              <td colspan="7">No jobs in queue. Stage files above to begin.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive 4x Before/After Corner Comparison Modal -->
+  <div class="modal" id="modal-compare">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 id="modal-filename">Corner Inspection (4x Magnified)</h3>
+          <span class="modal-subtitle" id="modal-mask-info">Mathematical Reverse-Alpha Comparison</span>
+        </div>
+        <div class="modal-controls">
+          <button id="modal-mode-toggle" class="btn btn-secondary btn-xs">Switch to Side-by-Side</button>
+          <button id="modal-close" class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <!-- Interactive Split Slider View -->
+        <div class="split-slider-container" id="split-slider-container">
+          <div class="split-image-layer before-layer">
+            <img id="img-before" src="" alt="Before (With Watermark)">
+            <span class="img-label label-before">BEFORE (ORIGINAL)</span>
+          </div>
+          <div class="split-image-layer after-layer" id="after-layer">
+            <img id="img-after" src="" alt="After (Watermark Removed)">
+            <span class="img-label label-after">AFTER (ZERO BLUR)</span>
+          </div>
+          <div class="split-divider" id="split-divider">
+            <div class="split-handle">↔</div>
+          </div>
+        </div>
+
+        <!-- Side-by-Side View (Alternate Mode) -->
+        <div class="side-by-side-container" id="side-by-side-container" style="display: none;">
+          <div class="sbs-box">
+            <span class="img-label label-before">ORIGINAL 4x CORNER</span>
+            <img id="img-sbs-before" src="" alt="Original Corner">
+          </div>
+          <div class="sbs-box">
+            <span class="img-label label-after">RESTORED 4x CORNER</span>
+            <img id="img-sbs-after" src="" alt="Restored Corner">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-hint">Drag slider handle left & right to inspect mathematical restoration at pixel level</span>
+        <a id="btn-modal-download" class="btn btn-primary btn-sm" href="#" download>Download Full File</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/ui/app.js"></script>
+</body>
+</html>

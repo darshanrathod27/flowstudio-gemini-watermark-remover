@@ -1,0 +1,6 @@
+{
+  "version": "3.8.0",
+  "release_notes": "v3.8.0: Smart Project Folder/ZIP engine (auto-skips already-clean & non-media files), Batch Studio PC folder picker & in-place/renamed export, Chrome Extension Project ZIP -> Folder interception, fixed sustained drag-hold Project Drop, and pure lossless cleanup.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
