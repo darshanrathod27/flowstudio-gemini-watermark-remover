@@ -1,0 +1,6 @@
+{
+  "version": "4.0.4",
+  "release_notes": "v4.0.4: Fixed silent ZIP drop on colons/special chars in Flow video titles, zero-drop duplicate entry deduplication, extensionless media magic-byte recovery, Damage-Only Veto image watermark guard (0% false negatives on bright sunset/textured corners), honest ZIP popup summaries, and fresh Dual-OS Windows + macOS Apple Silicon binaries.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
