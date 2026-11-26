@@ -1,0 +1,6 @@
+{
+  "version": "4.0.3",
+  "release_notes": "v4.0.3: Zero Chrome MV3 Service Worker / onInstalled errors, 10-profile Chrome auto-sync when FlowStudio updates on disk, global single-flight updater.lock guard, multi-profile concurrent download deduplication, and rock-solid WinError-183-free updates.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}

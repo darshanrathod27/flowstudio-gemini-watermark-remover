@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowStudio</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-wrapper">
+    <!-- Header (44px) -->
+    <header class="top-bar">
+      <div class="brand">
+        <span class="brand-logo">FS</span>
+        <span class="brand-name">FlowStudio</span>
+      </div>
+      <div class="hw-pill" id="hw-pill" title="Click to wake server if standby">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="hw-label">Connecting...</span>
+      </div>
+    </header>
+    <div class="wake-retry-hint" id="wake-retry-hint" style="display: none;">Wake timed out — click Standby · Wake to retry</div>
+
+    <!-- Update Banner (Hidden Unless Update Ready) -->
+    <div class="update-banner" id="update-banner" style="display: none;">
+      <div class="update-banner-content">
+        <span class="update-banner-text" id="update-banner-text">v<strong id="update-version">4.0.3</strong> ready</span>
+        <button id="btn-update-now" class="btn-update-now">Update Now</button>
+      </div>
+      <div id="update-status" class="update-status" style="display: none;"></div>
+    </div>
+
+    <!-- Controls Card (Strictly 5 Clean Controls Only) -->
+    <section class="card controls-card" id="controls-card">
+      <div class="row">
+        <div class="label-with-tag">
+          <span class="row-label">Extension Active</span>
+          <span class="paused-indicator" id="paused-indicator" style="display: none;">Paused</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-enabled" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="row" id="row-suffix">
+        <span class="row-label">Add _clean Suffix</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-suffix">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="row" id="row-project-zip" title="Auto-extracts Flow project ZIPs into a clean folder, skipping already-clean &amp; non-media files">
+        <span class="row-label">Project ZIP → Folder</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-project-zip" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="row" id="row-upscale">
+        <span class="row-label">AI Upscale</span>
+        <select id="select-upscale" class="compact-select">
+          <option value="off">Off</option>
+          <option value="1080p_anime">1080p Anime</option>
+          <option value="1080p_cinema">1080p Cinema</option>
+          <option value="2k_anime">2K Anime</option>
+          <option value="2k_cinema">2K Cinema</option>
+          <option value="4k_anime">4K Anime</option>
+          <option value="4k_cinema">4K Cinema</option>
+        </select>
+      </div>
+
+      <div class="row" id="row-autoflow">
+        <span class="row-label">Auto-Add to Flow</span>
+        <select id="select-autoflow" class="compact-select">
+          <option value="off">Off</option>
+          <option value="project_drop">Project (Drop)</option>
+          <option value="chat_paste">Chat (Paste)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Activity & History Section -->
+    <section class="card activity-card">
+      <div class="card-header">
+        <div class="section-title-group">
+          <span class="card-title">Activity</span>
+          <span class="activity-badge" id="activity-badge">0</span>
+        </div>
+        <button id="clear-history-btn" class="btn-clear-ghost" title="Clear finished history" disabled>Clear All</button>
+      </div>
+      <div id="activity-toast" class="activity-toast" style="display: none;"></div>
+      <div class="activity-list" id="activity-list">
+        <div class="empty-state">Ready — download media from Flow</div>
+      </div>
+    </section>
+
+    <!-- Slim Footer (34px) -->
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="footer-version" id="version-badge">v4.0.3</span>
+        <button id="btn-check-update" class="btn-check-update" title="Check for updates">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+        </button>
+      </div>
+      <button id="btn-open-studio" class="btn-studio">Batch Studio ↗</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
