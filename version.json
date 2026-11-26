@@ -1,0 +1,6 @@
+{
+  "version": "3.9.0",
+  "release_notes": "v3.9.0: Rock-solid Standby · Wake with zombie-mutex healing, whole-project upscaling across Extension ZIPs & Batch Studio folders, 1-click clean Uninstaller with confirmation popup (plus uninstall.ps1), and clean production architecture.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
