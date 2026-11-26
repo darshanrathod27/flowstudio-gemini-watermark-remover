@@ -1,0 +1,6 @@
+{
+  "version": "4.0.2",
+  "release_notes": "v4.0.2: Permanently eliminates WinError 183 during updates via file-by-file atomic merge, arbitrary space-safe install paths across Windows & macOS, Foreground Show in Folder window activation (Explorer / Finder), Standby-resilient extension updater, and automated Gate 5 release checks.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
