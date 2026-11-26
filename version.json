@@ -1,0 +1,6 @@
+{
+  "version": "3.7.0",
+  "release_notes": "v3.7.0: StealthCleaner engine with Remove Hidden Logo toggle (Extension & Batch Studio Web UI) scrubbing EXIF/XMP/C2PA metadata and hidden video/audio/image watermark signals.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
