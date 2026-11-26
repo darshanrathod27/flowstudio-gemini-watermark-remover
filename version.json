@@ -1,0 +1,6 @@
+{
+  "version": "4.0.0",
+  "release_notes": "v4.0.0: Cross-platform Windows + macOS Apple Silicon (M1/M2/M3/M4) release featuring Metal MPS GPU upscaling, VideoToolbox encoding, Smart Project ZIP & In-Place Folder Clean, Physics Image Guard + 100% Video Cleaning, Extension Show in Folder button, NSPasteboard clipboard, Finder picker, Menu Bar app, and 1-command install.sh / uninstall.sh.",
+  "repo_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover",
+  "releases_url": "https://github.com/darshanrathod27/flowstudio-gemini-watermark-remover/releases"
+}
