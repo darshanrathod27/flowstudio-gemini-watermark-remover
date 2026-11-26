@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Binaries (FFmpeg is auto-downloaded on setup, keeping repo < 2 MB)
+bin/
+
+# Models & Weights (Kept lightweight; downloaded on demand)
+models/*
+!models/.gitkeep
+
+# Local Workspace (Uploads, outputs, temp logs, PIDs)
+workspace/*
+!workspace/.gitkeep
+
+# Machine-specific Native Messaging Host generated during setup
+native_host/host.bat
+native_host/flowstudio_host.bat
+native_host/com.flowstudio.bridge.json
+
+# Private keys, secrets, local env
+*.pem
+*.key
+.env
+.env.*
+
+# Internal test & calibration scratch scripts
+test_*.py
+calibrate_*.py
+bundle_ffmpeg.py
+audit_*.py
+push_*.bat
+
+# Media, archives & debug logs
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.jpg
+*.jpeg
+*.webp
+*.zip
+*.log
+*.pid
+
+# Explicit whitelist: keep essential extension icons, compiled binaries & vault
+!extension/icons/*.png
+!assets/core_profiles.dat
+!engine/*.pyd
+
+# Raw calibration masks ignored in public binary release
+assets/masks/
